@@ -1,13 +1,15 @@
 import Race from './Race';
 
 export default class Elf extends Race {
+  private _maxLifePoints = 99;
+  private static _createdRacesInstances = 0;
   constructor(name: string, dexterity: number, maxInstances = Infinity) {
     super(name, dexterity);
     Elf._maxInstances = maxInstances;
+    Elf._createdRacesInstances += 1;
   }
 
-  private _maxLifePoints = 99;
-  get maxLifePoints(): number {
+  public get maxLifePoints(): number {
     return this._maxLifePoints;
   }
 
@@ -15,7 +17,3 @@ export default class Elf extends Race {
     return Elf._createdRacesInstances;
   }
 }
-
-// const elf1 = new Elf('Legolas', 10);
-// const elf2 = new Elf('Elrond', 10);
-// console.log(Elf.createdRacesInstances()); // 2

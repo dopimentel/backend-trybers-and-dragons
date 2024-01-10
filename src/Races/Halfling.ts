@@ -1,13 +1,15 @@
 import Race from './Race';
 
 export default class Halfling extends Race {
+  private _maxLifePoints = 60;
+  private static _createdRacesInstances = 0;
   constructor(name: string, dexterity: number, maxInstances = Infinity) {
     super(name, dexterity);
     Halfling._maxInstances = maxInstances;
+    Halfling._createdRacesInstances += 1;
   }
 
-  private _maxLifePoints = 60;
-  get maxLifePoints(): number {
+  public get maxLifePoints(): number {
     return this._maxLifePoints;
   }
 
@@ -15,6 +17,3 @@ export default class Halfling extends Race {
     return Halfling._createdRacesInstances;
   }
 }
-
-const half = new Halfling('Bilbo', 10);
-console.log(Halfling.createdRacesInstances()); // 1
