@@ -1,3 +1,3 @@
-import { Attacker, BasicFighter, Damageable } from './Fighter';
+import { SimpleFighter } from './Fighter';
 
-export default interface SimpleFighter extends BasicFighter, Attacker<SimpleFighter>, Damageable { }
+export default SimpleFighter;
