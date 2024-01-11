@@ -16,16 +16,20 @@ export default class PVE extends Battle {
     return this.getAliveOpponents().length > 0;
   }
 
+  private opponentsAttack() {
+    this.getAliveOpponents().forEach((opponent) => opponent.attack(this.player));
+    return super.fight();
+  }
+
+  private attackOpponents() {
+    this.getAliveOpponents().forEach((opponent) => this.player.attack(opponent));
+  }
+
   override fight() {
     while (super.fight() > 0 && this.thereAreAliveOpponents()) {
-      this.getAliveOpponents().forEach((opponent) => this.player.attack(opponent));
-      if (this.thereAreAliveOpponents()) {
-        this.getAliveOpponents().forEach((opponent) => opponent.attack(this.player));
-        if (this.player.lifePoints === -1) return -1;
-        return 1;
-      }
+      this.attackOpponents();
+      if (this.thereAreAliveOpponents()) return this.opponentsAttack();
     }
-    if (this.player.lifePoints === -1) return -1;
-    return 1;
+    return super.fight();
   }
 }

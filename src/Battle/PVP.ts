@@ -16,7 +16,6 @@ export default class PVP extends Battle {
       }
     }
 
-    if (this.player.lifePoints === -1) return -1;
-    return 1;
+    return super.fight();
   }
 }
