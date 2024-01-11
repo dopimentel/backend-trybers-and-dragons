@@ -1,6 +1,7 @@
 import { EnergyType } from '../Energy';
 
 export default abstract class Archetype {
+  protected static _createdArchetypeInstances = 0;
   protected static _maxInstances = 0;
   protected _name: string;
   protected _special: number;
@@ -9,6 +10,7 @@ export default abstract class Archetype {
     this._name = name;
     this._special = 0;
     this._cost = 0;
+    Archetype._createdArchetypeInstances += 1;
   }
 
   public get name(): string {
@@ -24,7 +26,8 @@ export default abstract class Archetype {
   }
 
   public static createdArchetypeInstances(): number {
-    throw new Error('Not implemented');
+    if (this._maxInstances === 0) throw new Error('Not implemented');
+    return this._createdArchetypeInstances;
   }
 
   public abstract get energyType(): EnergyType;
