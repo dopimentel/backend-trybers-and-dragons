@@ -1,4 +1,5 @@
-import Fighter, { BasicFighter, Attacker, Levelable, Damageable } from './Fighter';
+import Fighter, { BasicFighter, Defenseble, Attacker, Levelable, Damageable } from './Fighter';
+import SimpleFighter from './SimpleFighter';
 
 export default Fighter;
-export { BasicFighter, Attacker, Levelable, Damageable };
+export { BasicFighter, SimpleFighter, Defenseble, Attacker, Levelable, Damageable };
