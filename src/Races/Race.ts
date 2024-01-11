@@ -1,4 +1,5 @@
 export default abstract class Race {
+  protected static _createdRacesInstances = 0;
   protected static _maxInstances = 0;
   private _name: string;
   private _dexterity: number;
@@ -16,7 +17,10 @@ export default abstract class Race {
   }
 
   public static createdRacesInstances(): number {
-    throw new Error('Not implemented');
+    if (this._maxInstances === 0) {
+      throw new Error('Not implemented');
+    }
+    return this._createdRacesInstances; 
   }
 
   abstract get maxLifePoints(): number;
