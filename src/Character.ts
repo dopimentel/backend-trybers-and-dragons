@@ -67,19 +67,48 @@ export default class Character implements Fighter {
     return { ...this._energy };
   }
 
+  private incrementMaxLifePoints(increment: number): void {
+    this._maxLifePoints += increment;
+    
+    // Garantir que maxLifePoints não ultrapasse o limite da raça
+    if (this._maxLifePoints > this._race.maxLifePoints) {
+      this._maxLifePoints = this._race.maxLifePoints;
+    }
+
+    this._lifePoints = this._maxLifePoints;
+  }
+
+  private incrementAttributes(increment: number): void {
+    this._strength += increment;
+    this._dexterity += increment;
+    this._defense += increment;
+  }
+
+  private restoreEnergy(): void {
+    this._energy.amount = 10;
+  }
+
   attack(enemy: Fighter): void {
-    throw new Error('Method not implemented.');
+    enemy.receiveDamage(this._strength);
   }
 
   special(enemy: Fighter): void {
-    throw new Error('Method not implemented.');
+    enemy.receiveDamage(this._strength * 2);
   }
 
   levelUp(): void {
-    throw new Error('Method not implemented.');
+    const increment = getRandomInt(1, 10);
+    this.incrementAttributes(increment);
+    this.incrementMaxLifePoints(increment);
+    this.restoreEnergy();
   }
 
   receiveDamage(attackPoints: number): number {
-    throw new Error('Method not implemented.');
+    const damage = attackPoints - this._defense;
+    if (damage > 0) this._lifePoints -= damage;
+    else this._lifePoints -= 1;
+    if (this._lifePoints <= 0) this._lifePoints = -1;
+
+    return this._lifePoints;
   }
 }
